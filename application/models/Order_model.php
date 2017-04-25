@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Barang_model extends CI_Model {
+class Order_model extends CI_Model {
 
-	var $table = 'barang';
-	var $column_order = array('nama_barang','jumlah_barang','satuan_barang','keterangan_barang',null); //set column field database for datatable orderable
-	var $column_search = array('nama_barang'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-	var $order = array('id_barang' => 'desc'); // default order 
+	var $table = 'order';
+	var $column_order = array('email','weight','price','date_order','date_end','status',null); //set column field database for datatable orderable
+	var $column_search = array('email','weight','price','date_order','date_end','status'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+	var $order = array('id_order' => 'desc'); // default order 
 
 	public function __construct()
 	{
@@ -18,7 +18,6 @@ class Barang_model extends CI_Model {
 	{
 		
 		$this->db->from($this->table);
-		//$this->db->where('id_request',$no);
 
 		$i = 0;
 	
@@ -54,31 +53,23 @@ class Barang_model extends CI_Model {
 		}
 	}
 
+
 	public function edit($no)
 	{
-		$this->db->where("id_barang",$no);
-		return $this->db->get('barang');
+		$this->db->where("id_order",$no);
+		return $this->db->get('order');
 	}
 
-	public function add($databarang) //reski
+	/*public function add($databarang)
 	{
 		$this->db->insert('barang', $databarang);
-	}
+	}*/
 
-
-	public function tampil()
+	function get_datatables()
 	{
-		return $this->db->get('barang')->result_object();
-	}
-
-	function get_datatables($idd)
-	{
-
 		$this->_get_datatables_query();
 		if($_POST['length'] != -1)
 		$this->db->limit($_POST['length'], $_POST['start']);
-		
-		$this->db->where('id_request',$idd); //paramter
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -99,7 +90,7 @@ class Barang_model extends CI_Model {
 	public function get_by_id($id)
 	{
 		$this->db->from($this->table);
-		$this->db->where('id_barang',$id);
+		$this->db->where('id_order',$id);
 		$query = $this->db->get();
 
 		return $query->row();
@@ -119,9 +110,22 @@ class Barang_model extends CI_Model {
 
 	public function delete_by_id($id)
 	{
-		$this->db->where('id_barang', $id);
+		$this->db->where('id_order', $id);
 		$this->db->delete($this->table);
+
 	}
 
+	/*public function delete_barang_by_id($id)
+	{
+		$this->db->where('id_request',$id);
+		$this->db->delete('barang');
+	}*/
+
+	/*public function insert_file($no,$file_id)
+	{
+		$this->db->where("id_request",$no);
+		return $this->db->update('request',$file_id);
+		redirect('person');
+	}*/
 
 }

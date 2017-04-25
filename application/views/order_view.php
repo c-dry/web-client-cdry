@@ -78,7 +78,7 @@
               </a>
             </li> 
             <li class="">
-              <a href="<?php echo site_url('Order')?>">
+              <a>
                 <i class="fa fa-envelope"></i> <span>Order</span> 
               </a>
             </li>                       
@@ -96,9 +96,9 @@
         <section class="content">
         <!--<h1 style="font-size:20pt">Ajax CRUD with Bootstrap modals and Datatables with Server side Validation</h1>!-->
 
-        <h3>Data User</h3>
+        <h3>Data Order</h3>
         <br />
-        <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Tambah User</button>
+        <button class="btn btn-success" onclick="add_order()"><i class="glyphicon glyphicon-plus"></i> Tambah Order</button>
         <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Muat Ulang Tabel</button>
         <br />
         <br />
@@ -106,10 +106,11 @@
             <thead>
                 <tr>
                     <th>Email</th>
-                    <th>Password</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Role</th>                    
+                    <th>Weight</th>
+                    <th>Price</th>
+                    <th>Date Order</th>
+                    <th>Date End</th>
+                    <th>Status</th>                    
                     <th style="width:195px;">Aksi</th>
                 </tr>
             </thead>
@@ -119,10 +120,11 @@
             <tfoot>
             <tr>
                 <th>Email</th>
-                    <th>Password</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Role</th>                    
+                    <th>Weight</th>
+                    <th>Price</th>
+                    <th>Date Order</th>
+                    <th>Date End</th>
+                    <th>Status</th>                    
                     <th style="width:195px;">Aksi</th>
             </tr>
             </tfoot>
@@ -154,7 +156,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('person/ajax_list')?>",
+            "url": "<?php echo site_url('order/ajax_list')?>",
             "type": "POST"
         },
 
@@ -196,20 +198,20 @@ $(document).ready(function() {
 
 function edit_data()
 {
-    "<?php echo site_url('person/edit_data'); ?>";
+    "<?php echo site_url('order/edit_data'); ?>";
 }
 
-function add_person()
+function add_order()
 {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Tambah User'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Tambah Order'); // Set Title to Bootstrap modal title
 }
 
-function edit_person(id)
+function edit_order(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -218,21 +220,21 @@ function edit_person(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('person/ajax_edit/')?>/" + id,
+        url : "<?php echo site_url('order/ajax_edit/')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
 
-            $('[name="id_user"]').val(data.id_user);
+            $('[name="id_order"]').val(data.id_order);
             $('[name="email"]').val(data.email);
-            $('[name="password"]').val(data.password);
-            //$('[name="tanggal"]').val(data.tanggal);
-            $('[name="name"]').val(data.name);
-            $('[name="address"]').val(data.address);
-            $('[name="role"]').val(data.role);            
+            $('[name="weight"]').val(data.weight);
+            $('[name="price"]').val(data.price);
+            $('[name="date_order"]').datepicker('update',data.date_order);
+            $('[name="date_end"]').datepicker('update',data.date_end);
+            $('[name="status"]').val(data.status);            
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            $('.modal-title').text('Edit Request'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Edit Order'); // Set title to Bootstrap modal title
 
         },
         error: function (jqXHR, textStatus, errorThrown)
@@ -242,38 +244,7 @@ function edit_person(id)
     });
 }
 
-/*function edit_data(id)
-{
-    save_method = 'update';
-    $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
 
-    //Ajax Load data from ajax
-    $.ajax({
-        url : "<?php echo site_url('person/edit_data/')?>/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
-
-            $('[name="id_request"]').val(data.id_request);
-            $('[name="unit_permintaan"]').val(data.unit_permintaan);
-            $('[name="nomor_dokumen_pendukung"]').val(data.nomor_dokumen_pendukung);
-            //$('[name="tanggal"]').val(data.tanggal);
-            $('[name="tanggal"]').datepicker('update',data.tanggal);
-            $('[name="status"]').val(data.status);  
-
-            //$('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-            //$('.modal-title').text('Edit Barang'); // Set title to Bootstrap modal title
-
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-}*/
 
 function reload_table()
 {
@@ -291,9 +262,9 @@ function save()
     
 
     if(save_method == 'add') {
-        url = "<?php echo site_url('person/ajax_add')?>";
+        url = "<?php echo site_url('order/ajax_add')?>";
     } else {
-        url = "<?php echo site_url('person/ajax_update')?>";
+        url = "<?php echo site_url('order/ajax_update')?>";
     }
 
     // ajax adding data to database
@@ -335,13 +306,13 @@ function save()
     });
 }
 
-function delete_person(id,namafile)
+function delete_order(id,namafile)
 {
     if(confirm('Are you sure delete this data?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo site_url('person/ajax_delete')?>/"+id,
+            url : "<?php echo site_url('order/ajax_delete')?>/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -369,11 +340,11 @@ function delete_person(id,namafile)
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Person Form</h3>
+                <h3 class="modal-title">order Form</h3>
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="id_user"/> 
+                    <input type="hidden" value="" name="id_order"/> 
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-md-3">Email</label>
@@ -383,33 +354,40 @@ function delete_person(id,namafile)
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Password</label>
+                            <label class="control-label col-md-3">Weight</label>
                             <div class="col-md-9">
-                                <input name="password" placeholder="Password" class="form-control" type="password">
+                                <input name="weight" placeholder="Weight" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Name</label>
+                            <label class="control-label col-md-3">Price</label>
                             <div class="col-md-9">
-                                <input name="name" placeholder="Name" class="form-control" type="text">
+                                <input name="price" placeholder="Price" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Address</label>
+                            <label class="control-label col-md-3">Date Order</label>
                             <div class="col-md-9">
-                                <input name="address" placeholder="Address" class="form-control" type="text">
+                                <input name="date_order" placeholder="yyyy-mm-dd" class="form-control datepicker" type="text">
                                 <span class="help-block"></span>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Role</label>
+                            <label class="control-label col-md-3">Date End</label>
                             <div class="col-md-9">
-                                <select name="role" class="form-control">
-                                    <option value="">--Select Role--</option>
-                                    <option value=1>Admin</option>
-                                    <option value=0>User</option>
+                                <input name="date_end" placeholder="yyyy-mm-dd" class="form-control datepicker" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>                                                
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Status</label>
+                            <div class="col-md-9">
+                                <select name="status" class="form-control">
+                                    <option value="">--Select Status--</option>
+                                    <option value="Done">Done</option>
+                                    <option value="Undone">Undone</option>
                                 </select>
                                 <span class="help-block"></span>
                             </div>
