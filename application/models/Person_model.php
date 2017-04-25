@@ -3,10 +3,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Person_model extends CI_Model {
 
-	var $table = 'request';
-	var $column_order = array('unit_permintaan','nomor_dokumen_pendukung','tanggal','status',null,null); //set column field database for datatable orderable
-	var $column_search = array('unit_permintaan','nomor_dokumen_pendukung','tanggal'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-	var $order = array('id_request' => 'desc'); // default order 
+	var $table = 'user';
+	var $column_order = array('email','password','name','address','role',null); //set column field database for datatable orderable
+	var $column_search = array('email','password','name','address','role'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+	var $order = array('id_user' => 'desc'); // default order 
 
 	public function __construct()
 	{
@@ -56,14 +56,14 @@ class Person_model extends CI_Model {
 
 	public function edit($no)
 	{
-		$this->db->where("id_request",$no);
-		return $this->db->get('request');
+		$this->db->where("id_user",$no);
+		return $this->db->get('user');
 	}
 
-	public function add($databarang)
+	/*public function add($databarang)
 	{
 		$this->db->insert('barang', $databarang);
-	}
+	}*/
 
 	function get_datatables()
 	{
@@ -90,7 +90,7 @@ class Person_model extends CI_Model {
 	public function get_by_id($id)
 	{
 		$this->db->from($this->table);
-		$this->db->where('id_request',$id);
+		$this->db->where('id_user',$id);
 		$query = $this->db->get();
 
 		return $query->row();
@@ -110,22 +110,22 @@ class Person_model extends CI_Model {
 
 	public function delete_by_id($id)
 	{
-		$this->db->where('id_request', $id);
+		$this->db->where('id_user', $id);
 		$this->db->delete($this->table);
 
 	}
 
-	public function delete_barang_by_id($id)
+	/*public function delete_barang_by_id($id)
 	{
 		$this->db->where('id_request',$id);
 		$this->db->delete('barang');
-	}
+	}*/
 
-	public function insert_file($no,$file_id)
+	/*public function insert_file($no,$file_id)
 	{
 		$this->db->where("id_request",$no);
 		return $this->db->update('request',$file_id);
 		redirect('person');
-	}
+	}*/
 
 }

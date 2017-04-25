@@ -28,26 +28,27 @@ class Person extends CI_Controller {
 		foreach ($list as $person) {
 			$no++;
 			$row = array();
-			$row[] = $person->unit_permintaan;
-			$row[] = $person->nomor_dokumen_pendukung;
-			$row[] = $person->tanggal;
-			$row[] = $person->status;
+			//$row[] = $person->id_user;
+			$row[] = $person->email;
+			$row[] = $person->password;
+			$row[] = $person->name;
+			$row[] = $person->address;
+			$row[] = $person->role;
 
 			//add html for download
-			if($person->file_dokumen == NULL)
+			/*if($person->file_dokumen == NULL)
 			{
 				$row[] = '<i  href="#"><i class="glyphicon glyphicon-remove"></i> Tidak ada Berkas</i>';
 			}
 			else
 			{
 				$row[] = '<a  href="index.php/person/download/'.$person->file_dokumen.'" title="unduh" ><i class="glyphicon glyphicon-download"></i> Unduh Berkas</a>';
-			}
+			}*/
 
 			//add html for action
 			$row[] = 
-			'<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_person('."'".$person->id_request."'".')"><i class="glyphicon glyphicon-pencil"></i> Ubah</a>
-			<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_person('."'".$person->id_request."/".$person->file_dokumen."'".')"><i class="glyphicon glyphicon-trash"></i> Hapus</a>
-			<a class="btn btn-sm btn-success" href="index.php/person/edit_data/'.$person->id_request.'" title="Edit Request" ><i class="glyphicon glyphicon-plus"></i> Barang</a>';
+			'<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_person('."'".$person->id_user."'".')"><i class="glyphicon glyphicon-pencil"></i> Ubah</a>
+			<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_person('."'".$person->id_user."'".')"><i class="glyphicon glyphicon-trash"></i> Hapus</a>';
 
 		
 			$data[] = $row;
@@ -68,7 +69,7 @@ class Person extends CI_Controller {
 	public function ajax_edit($id)
 	{
 		$data = $this->person->get_by_id($id);
-		$data->tanggal = ($data->tanggal == '0000-00-00') ? '' : $data->tanggal; // if 0000-00-00 set tu empty for datepicker compatibility
+		//$data->tanggal = ($data->tanggal == '0000-00-00') ? '' : $data->tanggal; // if 0000-00-00 set tu empty for datepicker compatibility
 		echo json_encode($data);
 	}
 
@@ -77,10 +78,11 @@ class Person extends CI_Controller {
 		$this->_validate();
 
 		$data = array(
-				'unit_permintaan' => $this->input->post('unit_permintaan'),
-				'nomor_dokumen_pendukung' => $this->input->post('nomor_dokumen_pendukung'),
-				'tanggal' => $this->input->post('tanggal'),
-				'status' => $this->input->post('status'),
+				'email' => $this->input->post('email'),
+				'password' => $this->input->post('password'),
+				'name' => $this->input->post('name'),
+				'address' => $this->input->post('address'),
+				'role' => $this->input->post('role'),
 			);
 		$insert = $this->person->save($data);
 
@@ -94,30 +96,31 @@ class Person extends CI_Controller {
 		$this->load->view('edit',$data);    	
 	}
 
-	public function unggah($no)
+	/*public function unggah($no)
 	{
 		$data['data'] = $this->person->edit($no);
 		$this->load->view('upload_success',$data);    	
-	}
+	}*/
 
 	public function ajax_update()
 	{
 		$this->_validate();
 		$data = array(				
-				'unit_permintaan' => $this->input->post('unit_permintaan'),
-				'nomor_dokumen_pendukung' => $this->input->post('nomor_dokumen_pendukung'),
-				'tanggal' => $this->input->post('tanggal'),
-				'status' => $this->input->post('status'),
+				'email' => $this->input->post('email'),
+				'password' => $this->input->post('password'),
+				'name' => $this->input->post('name'),
+				'address' => $this->input->post('address'),
+				'role' => $this->input->post('role'),
 			);
-		$this->person->update(array('id_request' => $this->input->post('id_request')), $data);
+		$this->person->update(array('id_user' => $this->input->post('id_user')), $data);
 		echo json_encode(array("status" => TRUE));
 	}
 
 	public function ajax_delete($id,$namefile)
 	{
-		$this->person->delete_barang_by_id($id);
+		//$this->person->delete_barang_by_id($id);
 		$this->person->delete_by_id($id);
-		unlink("./files/".$namefile);
+		//unlink("./files/".$namefile);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -129,31 +132,38 @@ class Person extends CI_Controller {
 		$data['inputerror'] = array();
 		$data['status'] = TRUE;
 
-		if($this->input->post('unit_permintaan') == '')
+		if($this->input->post('email') == '')
 		{
-			$data['inputerror'][] = 'unit_permintaan';
-			$data['error_string'][] = 'Unit is required';
+			$data['inputerror'][] = 'email';
+			$data['error_string'][] = 'Email is required';
 			$data['status'] = FALSE;
 		}
 
-		if($this->input->post('nomor_dokumen_pendukung') == '')
+		if($this->input->post('password') == '')
 		{
-			$data['inputerror'][] = 'nomor_dokumen_pendukung';
-			$data['error_string'][] = 'Nomor Dokumen is required';
+			$data['inputerror'][] = 'password';
+			$data['error_string'][] = 'Password is required';
 			$data['status'] = FALSE;
 		}
 
-		if($this->input->post('tanggal') == '')
+		if($this->input->post('name') == '')
 		{
-			$data['inputerror'][] = 'tanggal';
-			$data['error_string'][] = 'Tanggal is required';
+			$data['inputerror'][] = 'name';
+			$data['error_string'][] = 'Name is required';
 			$data['status'] = FALSE;
 		}
 
-		if($this->input->post('status') == '')
+		if($this->input->post('address') == '')
 		{
-			$data['inputerror'][] = 'status';
-			$data['error_string'][] = 'Please select status';
+			$data['inputerror'][] = 'address';
+			$data['error_string'][] = 'Address is required';
+			$data['status'] = FALSE;
+		}
+
+		if($this->input->post('role') == '')
+		{
+			$data['inputerror'][] = 'role';
+			$data['error_string'][] = 'Please select your role';
 			$data['status'] = FALSE;
 		}
 
@@ -164,6 +174,7 @@ class Person extends CI_Controller {
 		}
 	}
 
+	/*
 	//FILE UPLOAD
 
 	//upload file dan delete file lama dan update database
@@ -255,4 +266,5 @@ class Person extends CI_Controller {
 	{
 		unlink("./files/".$namefile);
 	}
+	*/
 }

@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Surat Usulan Permintaan</title>
+    <title>C-Dry</title>
     <link href="<?php echo base_url('./assets/bs/css/bootstrap.min.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('./assets/datatables/css/dataTables.bootstrap.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('./assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>" rel="stylesheet">
 
-    <script src="<?php echo base_url()?>./assets/assets/site.js"></script>
-    <script src="<?php echo base_url()?>./assets/assets/ajaxfileupload.js"></script>
+   
 <!-- ####################################### ADMIN LTE CSS!-->
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>./assets/bs/css/bootstrap.min.css">
@@ -44,7 +43,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>SM</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>SUP</b></span>
+          <span class="logo-lg"><b>C-Dry</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -74,7 +73,7 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class="">
               <a href="<?php echo site_url('')?>">
-                <i class="fa fa-envelope"></i> <span>Permintaan Barang</span> 
+                <i class="fa fa-envelope"></i> <span>User</span> 
               </a>
             </li>            
             
@@ -93,18 +92,18 @@
 
         <h3>Data Request</h3>
         <br />
-        <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Tambah Permintaan</button>
+        <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Tambah User</button>
         <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Muat Ulang Tabel</button>
         <br />
         <br />
         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>Unit Permintaan</th>
-                    <th>Nomor Surat</th>
-                    <th>Tanggal</th>
-                    <th>Status</th>
-                    <th style="width:60px;">Berkas</th>                    
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Role</th>                    
                     <th style="width:195px;">Aksi</th>
                 </tr>
             </thead>
@@ -113,13 +112,12 @@
 
             <tfoot>
             <tr>
-                <th>Unit Permintaan</th>
-                <th>Nomor Surat</th>
-                <th>Tanggal</th>
-                <th>Status</th>
-                <th style="width:60px;">Berkas</th>
-                <!--<th>Date of Birth</th>!-->
-                <th style="width:195px;">Aksi</th>
+                <th>Email</th>
+                    <th>Password</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Role</th>                    
+                    <th style="width:195px;">Aksi</th>
             </tr>
             </tfoot>
         </table>
@@ -202,7 +200,7 @@ function add_person()
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Tambah Request'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Tambah User'); // Set Title to Bootstrap modal title
 }
 
 function edit_person(id)
@@ -220,12 +218,13 @@ function edit_person(id)
         success: function(data)
         {
 
-            $('[name="id_request"]').val(data.id_request);
-            $('[name="unit_permintaan"]').val(data.unit_permintaan);
-            $('[name="nomor_dokumen_pendukung"]').val(data.nomor_dokumen_pendukung);
+            $('[name="id_user"]').val(data.id_user);
+            $('[name="email"]').val(data.email);
+            $('[name="password"]').val(data.password);
             //$('[name="tanggal"]').val(data.tanggal);
-            $('[name="tanggal"]').datepicker('update',data.tanggal);
-            $('[name="status"]').val(data.status);            
+            $('[name="name"]').val(data.name);
+            $('[name="address"]').val(data.address);
+            $('[name="role"]').val(data.role);            
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Request'); // Set title to Bootstrap modal title
 
@@ -237,7 +236,7 @@ function edit_person(id)
     });
 }
 
-function edit_data(id)
+/*function edit_data(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -268,7 +267,7 @@ function edit_data(id)
             alert('Error get data from ajax');
         }
     });
-}
+}*/
 
 function reload_table()
 {
@@ -368,36 +367,43 @@ function delete_person(id,namafile)
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="id_request"/> 
+                    <input type="hidden" value="" name="id_user"/> 
                     <div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Unit Permintaan</label>
+                            <label class="control-label col-md-3">Email</label>
                             <div class="col-md-9">
-                                <input name="unit_permintaan" placeholder="Unit Permintaan" class="form-control" type="text">
+                                <input name="email" placeholder="Email" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">No. Surat</label>
+                            <label class="control-label col-md-3">Password</label>
                             <div class="col-md-9">
-                                <input name="nomor_dokumen_pendukung" placeholder="No. Surat" class="form-control" type="text">
+                                <input name="password" placeholder="Password" class="form-control" type="password">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Tanggal</label>
+                            <label class="control-label col-md-3">Name</label>
                             <div class="col-md-9">
-                                <input name="tanggal" placeholder="yyyy-mm-dd" class="form-control datepicker" type="text">
+                                <input name="Name" placeholder="Name" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Address</label>
+                            <div class="col-md-9">
+                                <input name="address" placeholder="Address" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>                        
                         <div class="form-group">
                             <label class="control-label col-md-3">Status</label>
                             <div class="col-md-9">
                                 <select name="status" class="form-control">
                                     <option value="">--Select Status--</option>
-                                    <option value="On Progress">On Progress</option>
-                                    <option value="Complete">Complete</option>
+                                    <option value=1>Admin</option>
+                                    <option value=0>User</option>
                                 </select>
                                 <span class="help-block"></span>
                             </div>
