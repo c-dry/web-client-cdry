@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Order_model extends CI_Model {
 
-	var $table = 'order';
+	var $table = 'orders';
 	var $column_order = array('email','weight','price','date_order','date_end','status',null); //set column field database for datatable orderable
 	var $column_search = array('email','weight','price','date_order','date_end','status'); //set column field database for datatable searchable just firstname , lastname , address are searchable
 	var $order = array('id_order' => 'desc'); // default order 
