@@ -37,8 +37,8 @@ class Order extends CI_Controller {
 			$row[] = $order->status;
 
 			$row[] =
-			'<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_order('."'".$order->id_order."'".')"><i class="glyphicon glyphicon-pencil"></i> Ubah</a>
-			<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_order('."'".$order->id_order."'".')"><i class="glyphicon glyphicon-trash"></i> Hapus</a>';
+			'<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_order('."'".$order->id_order."'".')"><i class="glyphicon glyphicon-pencil"></i> Update</a>
+			<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_order('."'".$order->id_order."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
 
 			$data[] = $row;
 		}
