@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <head> 
+    <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>C-Dry</title>
+    <title>C-DRY | Admin Panel</title>
     <link href="<?php echo base_url('./assets/bs/css/bootstrap.min.css')?>" rel="stylesheet">
 
     <link href="<?php echo base_url('./assets/datatables/css/dataTables.bootstrap.css')?>" rel="stylesheet">
     <link href="<?php echo base_url('./assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css')?>" rel="stylesheet">
 
-   
+
 <!-- ####################################### ADMIN LTE CSS!-->
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>./assets/bs/css/bootstrap.min.css">
@@ -34,7 +34,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    </head> 
+    </head>
 <body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
 
@@ -44,7 +44,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>SM</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>C-Dry</b></span>
+          <span class="logo-lg"><b>C-DRY | Admin Panel</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -53,14 +53,14 @@
             <span class="sr-only">Toggle navigation</span>
           </a>
           <!--<div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">             
+            <ul class="nav navbar-nav">
               <!-- User Account: style can be found in dropdown.less -->
               <!--<li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Selamat Datang, User <span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
                         <li><a href="#">Logout</a></li>
                       </ul>
-                  </li>              
+                  </li>
             </ul>
           </div>!-->
         </nav>
@@ -74,15 +74,15 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class="">
               <a href="<?php echo site_url('')?>">
-                <i class="fa fa-user"></i> <span>User</span>  
+                <i class="fa fa-user"></i> <span>User Manage</span>
               </a>
-            </li> 
+            </li>
             <li class="">
               <a href="<?php echo site_url('Order')?>">
-                <i class="fa fa-envelope"></i> <span>Order</span> 
+                <i class="fa fa-envelope"></i> <span>Order Manage</span>
               </a>
-            </li>                       
-            
+            </li>
+
         </section>
         <!-- /.sidebar -->
       </aside>
@@ -90,7 +90,7 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        
+
 
         <!-- Main content -->
         <section class="content">
@@ -98,8 +98,8 @@
 
         <h3>Data User</h3>
         <br />
-        <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Tambah User</button>
-        <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Muat Ulang Tabel</button>
+        <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Add User</button>
+        <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Reload Table Data</button>
         <br />
         <br />
         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -109,8 +109,8 @@
                     <th>Password</th>
                     <th>Name</th>
                     <th>Address</th>
-                    <th>Role</th>                    
-                    <th style="width:195px;">Aksi</th>
+                    <th>Role</th>
+                    <th style="width:195px;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -122,8 +122,8 @@
                     <th>Password</th>
                     <th>Name</th>
                     <th>Address</th>
-                    <th>Role</th>                    
-                    <th style="width:195px;">Aksi</th>
+                    <th>Role</th>
+                    <th style="width:195px;">Action</th>
             </tr>
             </tfoot>
         </table>
@@ -146,7 +146,7 @@ var table;
 $(document).ready(function() {
 
     //datatables
-    table = $('#table').DataTable({ 
+    table = $('#table').DataTable({
 
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -160,7 +160,7 @@ $(document).ready(function() {
 
         //Set column definition initialisation properties.
         "columnDefs": [
-        { 
+        {
             "targets": [ -1 ], //last column
             "orderable": false, //set not orderable
         },
@@ -175,10 +175,10 @@ $(document).ready(function() {
         todayHighlight: true,
         orientation: "top auto",
         todayBtn: true,
-        todayHighlight: true,  
+        todayHighlight: true,
     });
 
-    //set input/textarea/select event when change value, remove class error and remove text help block 
+    //set input/textarea/select event when change value, remove class error and remove text help block
     $("input").change(function(){
         $(this).parent().parent().removeClass('has-error');
         $(this).next().empty();
@@ -230,7 +230,7 @@ function edit_person(id)
             //$('[name="tanggal"]').val(data.tanggal);
             $('[name="name"]').val(data.name);
             $('[name="address"]').val(data.address);
-            $('[name="role"]').val(data.role);            
+            $('[name="role"]').val(data.role);
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Request'); // Set title to Bootstrap modal title
 
@@ -262,7 +262,7 @@ function edit_person(id)
             $('[name="nomor_dokumen_pendukung"]').val(data.nomor_dokumen_pendukung);
             //$('[name="tanggal"]').val(data.tanggal);
             $('[name="tanggal"]').datepicker('update',data.tanggal);
-            $('[name="status"]').val(data.status);  
+            $('[name="status"]').val(data.status);
 
             //$('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             //$('.modal-title').text('Edit Barang'); // Set title to Bootstrap modal title
@@ -277,18 +277,18 @@ function edit_person(id)
 
 function reload_table()
 {
-    table.ajax.reload(null,false); //reload datatable ajax 
+    table.ajax.reload(null,false); //reload datatable ajax
 }
 
 function save()
 {
 
     $('#btnSave').text('saving...'); //change button text
-    $('#btnSave').attr('disabled',true); //set button disable 
+    $('#btnSave').attr('disabled',true); //set button disable
     var url;
     //var data=new FormData();
 
-    
+
 
     if(save_method == 'add') {
         url = "<?php echo site_url('person/ajax_add')?>";
@@ -312,7 +312,7 @@ function save()
             }
             else
             {
-                for (var i = 0; i < data.inputerror.length; i++) 
+                for (var i = 0; i < data.inputerror.length; i++)
                 {
                     $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
                     $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
@@ -321,7 +321,7 @@ function save()
 
 
             $('#btnSave').text('Save'); //change button text
-            $('#btnSave').attr('disabled',false); //set button enable 
+            $('#btnSave').attr('disabled',false); //set button enable
 
 
         },
@@ -329,7 +329,7 @@ function save()
         {
             alert('Error adding / update data');
             $('#btnSave').text('save'); //change button text
-            $('#btnSave').attr('disabled',false); //set button enable 
+            $('#btnSave').attr('disabled',false); //set button enable
 
         }
     });
@@ -373,7 +373,7 @@ function delete_person(id,namafile)
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="id_user"/> 
+                    <input type="hidden" value="" name="id_user"/>
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-md-3">Email</label>
@@ -402,7 +402,7 @@ function delete_person(id,namafile)
                                 <input name="address" placeholder="Address" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
-                        </div>                        
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Role</label>
                             <div class="col-md-9">
@@ -413,7 +413,7 @@ function delete_person(id,namafile)
                                 </select>
                                 <span class="help-block"></span>
                             </div>
-                        </div>                     
+                        </div>
                     </div>
                 </form>
             </div>
@@ -428,7 +428,7 @@ function delete_person(id,namafile)
 <script src="<?php echo base_url('./assets/datatables/js/jquery.dataTables.min.js')?>"></script>
 <script src="<?php echo base_url('./assets/datatables/js/dataTables.bootstrap.js')?>"></script>
 <script src="<?php echo base_url('./assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js')?>"></script>
-            
+
             <!--  Page content -->
           </div>
         </div>
