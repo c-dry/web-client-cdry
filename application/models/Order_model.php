@@ -4,9 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Order_model extends CI_Model {
 
 	var $table = 'orders';
-	var $column_order = array('email','weight','price','date_order','date_end','status',null); //set column field database for datatable orderable
-	var $column_search = array('email','weight','price','date_order','date_end','status'); //set column field database for datatable searchable just firstname , lastname , address are searchable
-	var $order = array('id_order' => 'desc'); // default order 
+	var $column_order = array('email','address','weight','price','date_order','date_end','status',null); //set column field database for datatable orderable
+	var $column_search = array('email','address','weight','price','date_order','date_end','status'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+	var $order = array('date_order' => 'desc'); // default order
 
 	public function __construct()
 	{
@@ -16,16 +16,15 @@ class Order_model extends CI_Model {
 
 	private function _get_datatables_query()
 	{
-		
 		$this->db->from($this->table);
 
 		$i = 0;
-	
-		foreach ($this->column_search as $item) // loop column 
+
+		foreach ($this->column_search as $item) // loop column
 		{
 			if($_POST['search']['value']) // if datatable send POST for search
 			{
-				
+
 				if($i===0) // first loop
 				{
 					$this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
@@ -41,11 +40,11 @@ class Order_model extends CI_Model {
 			}
 			$i++;
 		}
-		
+
 		if(isset($_POST['order'])) // here order processing
 		{
 			$this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
-		} 
+		}
 		else if(isset($this->order))
 		{
 			$order = $this->order;

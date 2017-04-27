@@ -44,7 +44,7 @@
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>A</b>SM</span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>C-DRY | Admin Panel</b></span>
+          <span class="logo-lg"><b>C-DRY | Admin</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -106,6 +106,7 @@
             <thead>
                 <tr>
                     <th>Email</th>
+                    <th>Address</th>
                     <th>Weight</th>
                     <th>Price</th>
                     <th>Date Order</th>
@@ -116,18 +117,6 @@
             </thead>
             <tbody>
             </tbody>
-
-            <tfoot>
-            <tr>
-                <th>Email</th>
-                    <th>Weight</th>
-                    <th>Price</th>
-                    <th>Date Order</th>
-                    <th>Date End</th>
-                    <th>Status</th>
-                    <th style="width:195px;">Action</th>
-            </tr>
-            </tfoot>
         </table>
      </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
@@ -350,6 +339,13 @@ function delete_order(id,namafile)
                             <label class="control-label col-md-3">Email</label>
                             <div class="col-md-9">
                                 <input name="email" placeholder="Email" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Address</label>
+                            <div class="col-md-9">
+                                <input name="address" placeholder="Address" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
