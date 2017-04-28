@@ -202,6 +202,7 @@ function edit_order(id)
 
             $('[name="id_order"]').val(data.id_order);
             $('[name="email"]').val(data.email);
+            $('[name="address"]').val(data.address);
             $('[name="weight"]').val(data.weight);
             $('[name="price"]').val(data.price);
             $('[name="date_order"]').datepicker('update',data.date_order);
